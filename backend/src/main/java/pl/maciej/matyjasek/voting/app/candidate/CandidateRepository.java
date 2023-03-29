@@ -11,6 +11,7 @@ import java.util.Map;
 
 public interface CandidateRepository extends Repository<Candidate, Long> {
 	void save(Candidate candidate);
+
 	Page<Candidate> findAll(Pageable pageable);
 }
 

@@ -1,14 +1,15 @@
-package pl.maciej.matyjasek.voting.app.candidate.dto;
+package pl.maciej.matyjasek.voting.app.voter.dto;
 
 import lombok.NonNull;
 import lombok.Value;
 
 @Value
-public class CandidateDto {
+public class VoterDto {
 
 	@NonNull
 	String firstName;
 	@NonNull
 	String lastName;
-	Integer votesQuantity;
+	@NonNull
+	Boolean hasVoted;
 }

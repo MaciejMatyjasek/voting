@@ -8,7 +8,7 @@ class CandidateFactory {
 		return Candidate.builder()
 				.firstName(candidateDto.getFirstName())
 				.lastName(candidateDto.getLastName())
-				.hasVoted(candidateDto.getHasVoted())
+				.votesQuantity(0)
 				.build();
 	}
 }
