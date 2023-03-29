@@ -7,8 +7,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import pl.maciej.matyjasek.voting.app.voter.dto.VoterDto;
+import pl.maciej.matyjasek.voting.app.voter.exception.VoterAlreadyVotedException;
+import pl.maciej.matyjasek.voting.app.voter.exception.VoterNotFoundException;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 @Transactional
 @AllArgsConstructor
@@ -28,4 +31,18 @@ public class VoterFacade {
 		return voterRepository.findAll(pageable).map(Voter::toDto);
 	}
 
+	public VoterDto vote(UUID uuid) {
+		Voter voterFromDb = voterRepository
+				.findOneByUuid(uuid)
+				.orElseThrow(() -> new VoterNotFoundException("Cannot find Voter with given UUID=" + uuid + " in database"));
+		if (voterFromDb.getHasVoted()) {
+			throw new VoterAlreadyVotedException("Voter " + voterFromDb.getFirstName() + " " + voterFromDb.getLastName() + " already voted.");
+		}
+		update(voterFromDb);
+		return voterFromDb.toDto();
+	}
+
+	private void update(Voter voter) {
+		voter.setHasVoted(true);
+	}
 }

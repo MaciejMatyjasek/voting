@@ -1,7 +1,6 @@
 package pl.maciej.matyjasek.voting.app.voter.dto;
 
-import lombok.NonNull;
-import lombok.Value;
+import lombok.*;
 
 @Value
 public class VoterDto {

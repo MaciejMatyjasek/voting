@@ -9,7 +9,9 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.maciej.matyjasek.voting.app.candidate.CandidateFacade;
 import pl.maciej.matyjasek.voting.app.voter.VoterFacade;
+import pl.maciej.matyjasek.voting.app.voter.dto.UpdateVoterDto;
 import pl.maciej.matyjasek.voting.app.voter.dto.VoterDto;
 
 @AllArgsConstructor
@@ -19,6 +21,7 @@ import pl.maciej.matyjasek.voting.app.voter.dto.VoterDto;
 public class VoterController {
 
 	VoterFacade voterFacade;
+	CandidateFacade candidateFacade;
 
 	@GetMapping
 	Page<VoterDto> showVoters(Pageable pageable) {
@@ -29,5 +32,12 @@ public class VoterController {
 	HttpEntity<?> addVoter(@RequestBody VoterDto voterDto) {
 		voterFacade.addVoter(voterDto);
 		return ResponseEntity.ok(HttpStatus.CREATED);
+	}
+
+	@PostMapping("vote")
+	HttpEntity<VoterDto> vote(@RequestBody UpdateVoterDto updateVoterDto) {
+		VoterDto voterDto = voterFacade.vote(updateVoterDto.getUuid());
+		candidateFacade.addVote(updateVoterDto.getCandidateUUID());
+		return ResponseEntity.ok(voterDto);
 	}
 }

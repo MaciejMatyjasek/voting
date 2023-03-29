@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import pl.maciej.matyjasek.voting.app.candidate.CandidateFacade;
 
 @Configuration
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
