@@ -1,0 +1,53 @@
+<div class="container">
+  <h1 class="title">App!</h1>
+
+  <table>
+    <tr>
+      <th class="table-header" colspan="2">
+        <h4 class="table-header__title">Voters</h4>
+        <i class="table-header__icon">+</i>
+      </th>
+    </tr>
+    <tr class="table-data">
+      <td>Name</td>
+      <td>Has Voted</td>
+    </tr>
+    <tr class="table-data" *ngFor="let voter of voters">
+      <td>{{ voter.firstName}} {{voter.lastName}}</td>
+      <td>{{voter.hasVoted}}</td>
+    </tr>
+  </table>
+
+  <table>
+    <tr>
+      <th class="table-header" colspan="2">
+        <h4 class="table-header__title">Candidates</h4>
+        <i class="table-header__icon">+</i>
+      </th>
+    </tr>
+    <tr class="table-data" *ngFor="let candidate of candidates">
+      <td>{{candidate.firstName}} {{candidate.lastName}}</td>
+      <td>{{candidate.votesQuantity}}</td>
+    </tr>
+  </table>
+
+  <h1>Vote!</h1>
+  <div class="form">
+    <div class="select">
+      <select class="select__input" name="" id="" placeholder="I am">
+        <option value="" disabled selected>I am</option>
+        <option value="Test">Test 2</option>
+        <option value="Test">Test 3</option>
+      </select>
+    </div>
+    <div class="select">
+      <select class="select__input" name="" id="" placeholder="I am">
+        <option value="" disabled selected>I vote for</option>
+        <option value="Test">Test 2</option>
+        <option value="Test">Test 3</option>
+      </select>
+    </div>
+
+    <button class="form__submit">Submit !</button>
+  </div>
+</div>
