@@ -1,15 +1,13 @@
 package pl.maciej.matyjasek.voting.app.candidate;
 
 import jakarta.persistence.Entity;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import pl.maciej.matyjasek.voting.app.candidate.dto.CandidateDto;
 import pl.maciej.matyjasek.voting.app.shared.BaseEntity;
 
 @Entity
+@Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,6 +16,7 @@ class Candidate extends BaseEntity {
 
 	String firstName;
 	String lastName;
+	@Setter
 	Integer votesQuantity;
 
 	CandidateDto toDto() {

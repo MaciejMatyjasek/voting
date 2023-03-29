@@ -7,8 +7,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import pl.maciej.matyjasek.voting.app.candidate.dto.CandidateDto;
+import pl.maciej.matyjasek.voting.app.candidate.exception.CandidateNotFoundException;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 @Transactional
 @AllArgsConstructor
@@ -28,4 +30,14 @@ public class CandidateFacade {
 		return candidateRepository.findAll(pageable).map(Candidate::toDto);
 	}
 
+	public void addVote(UUID candidateUUID) {
+		Candidate candidateFromDb = candidateRepository
+				.findOneByUuid(candidateUUID)
+				.orElseThrow(() -> new CandidateNotFoundException("Cannot find Candidate with given UUID=" + candidateUUID + " in database"));
+		update(candidateFromDb);
+	}
+
+	private void update(Candidate candidateFromDb) {
+		candidateFromDb.setVotesQuantity(candidateFromDb.getVotesQuantity() + 1);
+	}
 }
