@@ -6,7 +6,7 @@
       <th class="table-header" colspan="2">
         <h4 class="table-header__title">Voters</h4>
 
-        <dialog #dialog [className]="voterDialog">
+        <dialog #voterDialog>
           <div>
             Type Your full name below:
             <br>
@@ -15,11 +15,11 @@
             Last name: <textarea [(ngModel)]="voterLastName"></textarea>
           </div>
           <div>
-            <button (click)="addVoter()">Save</button>
-            <button (click)="dialog.close()">Cancel</button>
+            <button (click)="addVoter(voterDialog)">Save</button>
+            <button (click)="voterDialog.close()">Cancel</button>
           </div>
         </dialog>
-        <button class="table-header__icon" (click)="dialog.showModal()">Add Voter</button>
+        <button class="table-header__icon" (click)="voterDialog.showModal()">Add Voter</button>
       </th>
     </tr>
 
@@ -37,7 +37,7 @@
     <tr>
       <th class="table-header" colspan="2">
         <h4 class="table-header__title">Candidates</h4>
-        <dialog #dialog2 [className]="candidateDialog">
+        <dialog #candidateDialog>
           <div>
             Type Your full name below:
             <br>
@@ -46,12 +46,12 @@
             Last name: <textarea [(ngModel)]="candidateLastName"></textarea>
           </div>
           <div>
-            <button (click)="addCandidate()">Save</button>
-            <button (click)="dialog2.close()">Cancel</button>
+            <button (click)="addCandidate(candidateDialog)">Save</button>
+            <button (click)="candidateDialog.close()">Cancel</button>
           </div>
         </dialog>
 
-        <button class="table-header__icon" (click)="dialog.showModal()">Add Candidate</button>
+        <button class="table-header__icon" (click)="candidateDialog.showModal()">Add Candidate</button>
       </th>
     </tr>
     <tr class="table-data" *ngFor="let candidate of candidates">

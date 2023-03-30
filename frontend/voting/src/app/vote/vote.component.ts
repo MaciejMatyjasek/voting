@@ -6,7 +6,6 @@ import {LifecycleManaging} from "../shared/lifecycle-managing";
 import {filter, map, Observable, Subject, takeWhile, tap} from "rxjs";
 import {CandidateService} from "./candidate/candidate.service";
 import {UpdateVoterDto} from "./voter/updateVoterDto";
-import {MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'vote-component',
@@ -26,13 +25,10 @@ export class VoteComponent extends LifecycleManaging implements OnInit {
   candidateDto: CandidateDto;
   selectedVoterUuid: string;
   selectedCandidateUuid: string;
-  voterDialog: HTMLDialogElement;
-  candidateDialog: HTMLDialogElement;
   voterFirstName: string;
   voterLastName: string;
   candidateFirstName: string;
   candidateLastName: string;
-  dialog: MatDialogRef<any>;
 
   constructor(private voterService: VoterService, private candidateService: CandidateService) {
     super();
@@ -88,29 +84,30 @@ export class VoteComponent extends LifecycleManaging implements OnInit {
     }
   }
 
-  addVoter() {
+  addVoter(dialogElement :HTMLDialogElement) {
     console.log('Dodajesz głosującego ' + this.voterFirstName + ' ' + this.voterLastName)
     this.voterDto = new VoterDto('', this.voterFirstName, this.voterLastName, false)
     this.voterService.save(this.voterDto)
       .pipe(
         takeWhile(() => this.alive),
-        tap(() => console.log('Trwa wysyłanie do zapisu nowego głosującego: ' + this.voterFirstName + ' ' + this.voterLastName))
+        tap(() => console.log('Trwa wysyłanie do zapisu nowego głosującego: ' + this.voterFirstName + ' ' + this.voterLastName)),
+        tap(() => dialogElement.close())
       )
       .subscribe();
     this.getVoters()
-    this.voterDialog.close()
+
   }
 
-  addCandidate() {
+  addCandidate(dialogElement :HTMLDialogElement) {
     console.log('Dodajesz kandydata ' + this.candidateFirstName + ' ' + this.candidateLastName)
     this.candidateDto = new CandidateDto('', this.candidateFirstName, this.candidateLastName, 0)
     this.candidateService.save(this.candidateDto)
       .pipe(
         takeWhile(() => this.alive),
-        tap(() => console.log('Trwa wysyłanie do zapisu nowego kandydata: ' + this.candidateFirstName + ' ' + this.candidateLastName))
+        tap(() => console.log('Trwa wysyłanie do zapisu nowego kandydata: ' + this.candidateFirstName + ' ' + this.candidateLastName)),
+        tap(() => dialogElement.close())
       )
       .subscribe();
     this.getCandidates()
-    this.candidateDialog.close();
   }
 }
