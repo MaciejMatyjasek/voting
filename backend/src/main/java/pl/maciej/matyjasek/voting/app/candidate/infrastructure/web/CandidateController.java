@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.*;
 import pl.maciej.matyjasek.voting.app.candidate.CandidateFacade;
 import pl.maciej.matyjasek.voting.app.candidate.dto.CandidateDto;
 
+import java.util.List;
+
 @AllArgsConstructor
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/candidate")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class CandidateController {
@@ -21,8 +24,8 @@ public class CandidateController {
 	CandidateFacade candidateFacade;
 
 	@GetMapping
-	Page<CandidateDto> showCandidates(Pageable pageable) {
-		return candidateFacade.showCandidates(pageable);
+	List<CandidateDto> showCandidates() {
+		return candidateFacade.showCandidates();
 	}
 
 	@PostMapping

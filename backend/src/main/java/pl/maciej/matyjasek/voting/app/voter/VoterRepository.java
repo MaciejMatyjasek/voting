@@ -10,7 +10,7 @@ import java.util.*;
 public interface VoterRepository extends Repository<Voter, Long> {
 	void save(Voter voter);
 
-	Page<Voter> findAll(Pageable pageable);
+	List<Voter> findAll();
 
 	Optional<Voter> findOneByUuid(UUID uuid);
 }
@@ -22,8 +22,8 @@ class InMemoryVoterRepository implements VoterRepository {
 		votersStorage.put(voter.getUuid(), voter);
 	}
 
-	@Override public Page<Voter> findAll(Pageable pageable) {
-		return new PageImpl<>(new ArrayList<>(votersStorage.values()));
+	@Override public List<Voter> findAll() {
+		return new ArrayList<>(votersStorage.values());
 	}
 
 	@Override public Optional<Voter> findOneByUuid(UUID uuid) {

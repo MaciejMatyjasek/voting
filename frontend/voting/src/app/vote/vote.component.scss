@@ -1,0 +1,136 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  max-width: 1440px;
+  padding: 1rem 2rem;
+  margin: 0 auto;
+}
+
+.container {
+  display: grid;
+  // Określa rozkład kolumn w grid
+  // repeat(auto-fill) - w skrócie powtarzaj tyle ile się zmieści
+  // minmax(45%, 1fr) - grid cell będzie zajmował minimalnie 45% dostępnej przestrzeni, ale jak nie będzie to możliwe rozciągnie się na całą przestrzeń
+  // na mobilce tabela będzie jedna pod drugą - jak dałem 45% to nie będzie więcej niż 2 kolumny
+  grid-template-columns: repeat(auto-fill, minmax(45%, 1fr));
+  grid-gap: 20px 40px;
+}
+
+.title {
+  // Zajmij całą przestrzeń w wierszu
+  grid-column: 1/-1;
+}
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 5px;
+}
+
+table {
+  // Tabele na środku grid cell i bez ustawienia width byłyby ściśnięte
+  justify-self: center;
+  width: 100%;
+}
+
+.table-header__icon {
+  // Ustaw ikone + na końcu i wyśrodkuj
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+}
+
+.table-header {
+  position: relative;
+  height: 10px;
+}
+
+.table-data td {
+  text-align: center;
+}
+
+.table-data td:last-child {
+  // Ostatni element w wierszu tabeli będzie miał 1/3 długości, a pierwszy zajmie pozostałą przestrzeń
+  width: 33.33%;
+}
+
+//-------------- FORM ---------------
+
+.form {
+  grid-column: 1 / -1;
+  display: flex;
+  // Jak już nie będzie miejsca na ekranie to zawiń elementy 1 pod drugim
+  flex-wrap: wrap;
+  // Takie same odstępy między elementami flex w tym kontenerze
+  gap: 20px;
+}
+
+.select__input {
+  // Ukrywa część styli selecta w tym natywny marker
+  appearance: none;
+  background-color: #e7e9ee;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  color: #656584;
+  cursor: pointer;
+}
+
+.select {
+  // Kontener dla select i dajemy display grid
+  display: grid;
+  // Tworzemy jedną przestrzeń która zajmuje całą przestrzeń kontenera
+  grid-template-areas: "select";
+  // Wertykalnie wyśrodkowuje elementy grida
+  align-items: center;
+  //Zajmij całą dostępną przestrzeń, ale nie mniej niż 150px i nie więcej niż 300px
+  flex: 1;
+  min-width: 150px;
+  max-width: 300px;
+}
+
+.select__input,
+.select:after {
+  // Wrzuca input select oraz pseudo-element kontenera do przestrzeni grid select -> z grid-template-areas: select;
+  grid-area: select;
+}
+
+.select::after {
+  // Marker dla selectu
+  content: "";
+  width: 15px;
+  height: 8px;
+  background-color: #656584;
+  //Clip path wycina strzałkę
+  clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+  // Ustawienie horyzontalne elementu w kontenerze - end = na końcu
+  justify-self: end;
+  // Odepchnij od krawędzi selecta
+  margin-right: 10px;
+}
+
+.form__submit {
+  background-color: #e6e6e7;
+  border: none;
+  padding: 12px 36px;
+  cursor: pointer;
+  border-radius: 4px;
+  color: #656584;
+}
+
+.form__submit:hover {
+  background-color: #2b2b2d;
+  color: #cfcfda;
+  transition: all .15s ease;
+}
+
+.select__input:focus, .form__submit:focus {
+  // Nie wiem czy im będzie na tym zależeć, ale mały improvment dla accessibility
+  // Jak select albo button jest kliknięty albo tabem przechodzisz to się ramka pojawia i widać na ktorym miejscu na stronie jesteś
+  outline: 5px auto #656584;
+}

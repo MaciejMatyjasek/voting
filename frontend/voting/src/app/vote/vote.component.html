@@ -1,0 +1,81 @@
+<div class="container">
+  <h1 class="title">App!</h1>
+
+  <table>
+    <tr>
+      <th class="table-header" colspan="2">
+        <h4 class="table-header__title">Voters</h4>
+
+        <dialog #dialog [className]="voterDialog">
+          <div>
+            Type Your full name below:
+            <br>
+            First name: <textarea [(ngModel)]="voterFirstName"></textarea>
+            <br>
+            Last name: <textarea [(ngModel)]="voterLastName"></textarea>
+          </div>
+          <div>
+            <button (click)="addVoter()">Save</button>
+            <button (click)="dialog.close()">Cancel</button>
+          </div>
+        </dialog>
+        <button class="table-header__icon" (click)="dialog.showModal()">Add Voter</button>
+      </th>
+    </tr>
+
+    <tr class="table-data">
+      <td>Name</td>
+      <td>Has Voted</td>
+    </tr>
+    <tr class="table-data" *ngFor="let voter of voters">
+      <td>{{ voter.firstName}} {{voter.lastName}}</td>
+      <td>{{voter.hasVoted ? 'Yes' : 'No'}}</td>
+    </tr>
+  </table>
+
+  <table>
+    <tr>
+      <th class="table-header" colspan="2">
+        <h4 class="table-header__title">Candidates</h4>
+        <dialog #dialog2 [className]="candidateDialog">
+          <div>
+            Type Your full name below:
+            <br>
+            First name: <textarea [(ngModel)]="candidateFirstName"></textarea>
+            <br>
+            Last name: <textarea [(ngModel)]="candidateLastName"></textarea>
+          </div>
+          <div>
+            <button (click)="addCandidate()">Save</button>
+            <button (click)="dialog2.close()">Cancel</button>
+          </div>
+        </dialog>
+
+        <button class="table-header__icon" (click)="dialog.showModal()">Add Candidate</button>
+      </th>
+    </tr>
+    <tr class="table-data" *ngFor="let candidate of candidates">
+      <td>{{candidate.firstName}} {{candidate.lastName}}</td>
+      <td>{{candidate.votesQuantity}}</td>
+    </tr>
+  </table>
+
+  <h1>Vote!</h1>
+  <div class="form">
+    <div class="select">
+      <select class="select__input" [(ngModel)]="selectedVoterUuid" placeholder="I am">
+        <option disabled selected>I am</option>
+        <option *ngFor="let voter of voters" [value]="voter.uuid" [disabled]="voter.hasVoted">{{voter.firstName}} {{voter.lastName}}</option>
+        <!--        *ngIf="!voter.hasVoted"-->
+      </select>
+    </div>
+    <div class="select">
+      <select class="select__input" [(ngModel)]="selectedCandidateUuid" placeholder="I vote for">
+        <option value="" disabled selected>I vote for</option>
+        <option *ngFor="let candidate of candidates" [value]="candidate.uuid">{{candidate.firstName}} {{candidate.lastName}}</option>
+      </select>
+    </div>
+
+    <button class="form__submit" (click)="vote()">Vote</button>
+  </div>
+</div>

@@ -3,8 +3,6 @@ package pl.maciej.matyjasek.voting.app.voter.infrastructure.web;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +12,11 @@ import pl.maciej.matyjasek.voting.app.voter.VoterFacade;
 import pl.maciej.matyjasek.voting.app.voter.dto.UpdateVoterDto;
 import pl.maciej.matyjasek.voting.app.voter.dto.VoterDto;
 
+import java.util.List;
+
 @AllArgsConstructor
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/voter")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class VoterController {
@@ -24,8 +25,8 @@ public class VoterController {
 	CandidateFacade candidateFacade;
 
 	@GetMapping
-	Page<VoterDto> showVoters(Pageable pageable) {
-		return voterFacade.showVoters(pageable);
+	List<VoterDto> showVoters() {
+		return voterFacade.showVoters();
 	}
 
 	@PostMapping
@@ -35,9 +36,9 @@ public class VoterController {
 	}
 
 	@PostMapping("vote")
-	HttpEntity<VoterDto> vote(@RequestBody UpdateVoterDto updateVoterDto) {
-		VoterDto voterDto = voterFacade.vote(updateVoterDto.getUuid());
+	HttpEntity<?> vote(@RequestBody UpdateVoterDto updateVoterDto) {
+		voterFacade.vote(updateVoterDto.getUuid());
 		candidateFacade.addVote(updateVoterDto.getCandidateUUID());
-		return ResponseEntity.ok(voterDto);
+		return ResponseEntity.ok(HttpStatus.OK);
 	}
 }
