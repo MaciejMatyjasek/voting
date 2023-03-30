@@ -1,11 +1,15 @@
 package pl.maciej.matyjasek.voting.app.voter.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.Value;
 
 import java.util.UUID;
 
-@Value
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 public class UpdateVoterDto {
 
 	@NonNull UUID uuid;

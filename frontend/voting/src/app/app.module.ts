@@ -3,6 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
 import {VoteModule} from "./vote/vote.module";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -11,6 +12,7 @@ import {VoteModule} from "./vote/vote.module";
   imports: [
     BrowserModule,
     VoteModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

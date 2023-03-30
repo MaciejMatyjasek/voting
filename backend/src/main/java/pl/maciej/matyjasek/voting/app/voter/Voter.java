@@ -20,6 +20,6 @@ class Voter extends BaseEntity {
 	Boolean hasVoted;
 
 	VoterDto toDto() {
-		return new VoterDto(firstName, lastName, hasVoted);
+		return new VoterDto(super.getUuid() ,firstName, lastName, hasVoted);
 	}
 }

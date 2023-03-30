@@ -20,6 +20,6 @@ class Candidate extends BaseEntity {
 	Integer votesQuantity;
 
 	CandidateDto toDto() {
-		return new CandidateDto(firstName, lastName, votesQuantity);
+		return new CandidateDto(super.getUuid(), firstName, lastName, votesQuantity);
 	}
 }
