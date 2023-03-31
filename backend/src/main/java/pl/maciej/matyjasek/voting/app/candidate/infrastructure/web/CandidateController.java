@@ -24,12 +24,12 @@ public class CandidateController {
 	CandidateFacade candidateFacade;
 
 	@GetMapping
-	List<CandidateDto> showCandidates() {
-		return candidateFacade.showCandidates();
+	ResponseEntity<List<CandidateDto>> showCandidates() {
+		return ResponseEntity.ok(candidateFacade.showCandidates());
 	}
 
 	@PostMapping
-	HttpEntity<?> addCandidate(@RequestBody CandidateDto candidateDto) {
+	ResponseEntity<?> addCandidate(@RequestBody CandidateDto candidateDto) {
 		candidateFacade.addCandidate(candidateDto);
 		return ResponseEntity.ok(HttpStatus.CREATED);
 	}
